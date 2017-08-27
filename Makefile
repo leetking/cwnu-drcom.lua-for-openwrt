@@ -3,10 +3,10 @@ CP := cp -r
 MKDIR := mkdir -p
 SED := sed
 
-VERSION := 0.0.4.4-web
+VERSION := 0.0.5.0-web
 APP := Drcom4CWNU-$(VERSION)
 
-ipk: drcom
+ipk: drcom-lua
 	$(MKDIR) ./usr/lib/lua/luci/controller/
 	$(MKDIR) ./usr/lib/lua/luci/model/cbi/
 	$(MKDIR) ./etc/config/
@@ -45,5 +45,13 @@ ipk: drcom
 
 clean:
 	$(RM) $(APP)* *.ipk
+distclean: clean
+	$(RM) drcom config.lua core.lua
 
-.PHONY: ipk clean
+drcom-lua: cwnu-drcom.lua/drcom.lua cwnu-drcom.lua/src/core.lua cwnu-drcom.lua/src/config.lua
+	$(SED) -f patch.sed cwnu-drcom.lua/drcom.lua > drcom
+	chmod +x drcom
+	$(SED) -f patch.sed cwnu-drcom.lua/src/core.lua > core.lua
+	$(SED) -f patch.sed cwnu-drcom.lua/src/config.lua > config.lua
+
+.PHONY: ipk clean drcom-lua

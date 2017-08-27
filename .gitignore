@@ -1,1 +1,4 @@
 *.ipk
+drcom
+config.lua
+core.lua
