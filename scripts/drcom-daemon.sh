@@ -21,7 +21,14 @@ isconnect() {
     return ${status}
 }
 
-_empty() {
+tx_some_file() {
+    local DOWNLOAD_CNT=15
+    local i=0
+    while [ $i -lt ${DOWNLOAD_CNT} ]; do
+        #echo "$i wget -q -P /tmp/ http://www.baidu.com/ -O foo"
+        wget -q -P /tmp/ http://www.baidu.com/ -O foo
+        i=`expr $i + 1`
+    done
     return 0
 }
 
@@ -29,9 +36,9 @@ drcom_daemon() {
     if isconnect; then
         SLEEPTIME=60
         RECONCNT=0
-        _empty
-        #sleep 7 mins
-        sleep 420
+        tx_some_file
+        #sleep 2 mins
+        sleep 120
     else
         RECONCNT=`expr ${RECONCNT} + 1`
         echo "${RECONCNT}-th restarting Drcom4CWNU ..."
