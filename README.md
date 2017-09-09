@@ -6,6 +6,7 @@ The original project at [cwnu-drcom.lua](https://github.com/leetking/cwnu-drcom.
 
 ```shell
 $ git clone https://github.com/leetking/cwnu-drcom.lua-for-openwrt.git
+$ cd cwnu-drcom.lua-for-openwrt
 $ git submodule update
 $ make
 $ # move it into OpenWrt, then run
