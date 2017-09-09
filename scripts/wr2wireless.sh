@@ -16,13 +16,20 @@ parse_conf() {
     config_get wifipwd $1 wifipwd
     echo "wifissid: '$wifissid'"
     echo "wifipwd : '$wifipwd'"
-    uci set wireless.@wifi-iface[0].ssid="${wifissid}"
-    uci set wireless.@wifi-iface[0].key="${wifipwd}"
-    uci set wireless.@wifi-iface[0].hidden="0"
-    uci set wireless.@wifi-iface[0].country="CN"
-    uci set wireless.@wifi-iface[0].encryption="psk2"
+    local wificnt=`uci show wireless | grep -o "\[[0-9]\]" | uniq | wc -l`
+    local i=0
+    # suport 5G
+    while [ $i -lt $wificnt ]; do
+        uci set wireless.@wifi-iface[$i].ssid="${wifissid}"
+        uci set wireless.@wifi-iface[$i].key="${wifipwd}"
+        uci set wireless.@wifi-iface[$i].hidden="0"
+        uci set wireless.@wifi-iface[$i].country="CN"
+        uci set wireless.@wifi-iface[$i].encryption="psk2"
+        echo "modify \`wireless@$i\' success!\n"
+        i=`expr $i + 1`
+    done
     uci commit wireless
-    echo "modify \`wireless\' success!\n"
+    echo "commit \`wireless\' success!\n"
     uci export wireless
 }
 

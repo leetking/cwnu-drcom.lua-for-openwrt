@@ -1,6 +1,6 @@
 Package: Drcom4CWNU
 Version: 
-Depends: lua, luasocket
+Depends: lua, luasocket, shadowsocks-libev
 Source: http://github.com/leetking/cwnu-drcom.git
 License: GPLv2
 LicenseFiles: LICENSE

@@ -3,7 +3,7 @@ CP := cp -r
 MKDIR := mkdir -p
 SED := sed
 
-VERSION := 0.0.5.1-web
+VERSION := 0.0.6.0-web
 APP := Drcom4CWNU-$(VERSION)
 
 ipk: drcom-lua
@@ -33,6 +33,10 @@ ipk: drcom-lua
 	$(CP) md5.lua                             ./overlay/Drcom4CWNU/md5.lua
 	$(CP) random_mac                          ./usr/bin/random_mac
 	chmod +x                                  ./usr/bin/random_mac
+	$(CP) scripts/pass-local.sh               ./usr/bin/pass-local.sh
+	chmod +x 								  ./usr/bin/pass-local.sh
+	$(CP) scripts/wr2pass-local.sh            ./overlay/Drcom4CWNU/wr2pass-local.sh
+	chmod +x                                  ./overlay/Drcom4CWNU/wr2pass-local.sh
 	tar -czf data.tar.gz ./usr ./etc ./overlay
 	$(CP) ipk/control                         ./control
 	$(SED) -i "s/Version.*/Version: $(VERSION)/"                                  ./control

@@ -11,6 +11,7 @@ local ETC_CONFIG_SECTION = "setting"
 local DRCOM_PATH  = "/overlay/Drcom4CWNU/"
 local WR2DRCOMRC  = "wr2drcomrc.sh"
 local WR2WIRELESS = "wr2wireless.sh"
+local WR2PASS_LOCAL= "wr2pass-local.sh"
 local APP_NAME    = "Dr.com"
 local DESCRIPTION = [[项目所在<a href='https://github.com/leetking/cwnu-drcom'>cwnu-drcom</a><br/>
 一个为<a href='http://www.cwnu.edu.cn'>西华师范大学</a>开发的第三方dr.com登录客户端.]]
@@ -39,11 +40,18 @@ wifipwd.password = true
 function wifipwd:validate(value)
     return (string.len(value) >= 8) and value or nil
 end
+-- 绕过本地检测的代理服务器设置
+local proxy      = s:option(Value, "proxy", translate("代理服务器"))
+local proxy_port = s:option(Value, "proxy_port", translate("代理端口"))
+proxy_port.default = "2333"
+local proxy_pwd  = s:option(Value, "proxy_pwd", translate("代理密码"))
+proxy_pwd.password = true
 
 local apply = luci.http.formvalue()
 if apply then
     io.popen(DRCOM_PATH..WR2DRCOMRC.." start")
     io.popen(DRCOM_PATH..WR2WIRELESS.." start")
+    io.popen(DRCOM_PATH..WR2PASS_LOCAL.." start")
 end
 
 return m

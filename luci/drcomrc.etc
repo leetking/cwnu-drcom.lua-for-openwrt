@@ -6,3 +6,7 @@ config setting
     option server   '10.255.0.204' # there is server ip, default is '10.255.0.204' for my location.
     option wifissid 'yourwifiname' # there is your wifi's name.
     option wifipwd  'yourwifipwd'  # there is your wifi's pass word.
+    option proxy      '192.168.1.1' # there is your proxy server ip
+    option proxy_port '2333'        # there is your proxy server port
+    option method     'rc4-md5'     # there is your proxy server encrypt method
+    option proxy_pwd  '1234567890'  # there is your proxy server password

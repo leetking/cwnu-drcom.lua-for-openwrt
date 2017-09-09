@@ -15,14 +15,27 @@ RECONCNT=0
 
 isconnect() {
     local url=baidu.com
+    local ping_cnt=3
 
-    ping -q -c 3 ${url} > /dev/null 2> /dev/null
-    local status=$?
-    return ${status}
+    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    echo "Now detecting networking..."
+    date
+    local i=0
+    while [ $i -lt ${ping_cnt} ]; do
+        #ping -q -c 2 -W 3 ${url} > /dev/null 2> /dev/null
+        ping -c 2 -W 3 ${url}
+        s=$?
+        echo "isconnect $i: ping -c 2 -W 3 ${url} | $s"
+        if [ 0 == $s ]; then
+            return 0
+        fi
+        i=`expr $i + 1`
+    done
+    return 1
 }
 
 tx_some_file() {
-    local DOWNLOAD_CNT=15
+    local DOWNLOAD_CNT=10
     local i=0
     while [ $i -lt ${DOWNLOAD_CNT} ]; do
         #echo "$i wget -q -P /tmp/ http://www.baidu.com/ -O foo"
@@ -37,8 +50,8 @@ drcom_daemon() {
         SLEEPTIME=60
         RECONCNT=0
         tx_some_file
-        #sleep 2 mins
-        sleep 120
+        #sleep 7 mins
+        sleep 420
     else
         RECONCNT=`expr ${RECONCNT} + 1`
         echo "${RECONCNT}-th restarting Drcom4CWNU ..."
@@ -51,7 +64,7 @@ drcom_daemon() {
     fi
 }
 
-_pass() {
+go() {
     while true; do
         drcom_daemon
     done > /tmp/drcom_daemon.log &
@@ -67,8 +80,14 @@ _set_random_mac() {
 }
 
 start() {
+    # random mac
     _set_random_mac > /tmp/_random_mac.log
     network restart
-    _pass
+
+    # start pass-local.sh
+    pass-local.sh start
+
+    # Go!!
+    go
 }
 
