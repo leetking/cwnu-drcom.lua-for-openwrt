@@ -5,9 +5,9 @@
 # (C) leetking <li_Tking@163.com>
 # locate at /etc/init.d/drcom-daemon
 
-PATH=$PATH:/etc/init.d/
+PATH=$PATH:/etc/init.d/:/overlay/Drcom4CWNU/
 
-DRCOM_PATH=/etc/init.d/drcom.sh
+DRCOM_SH=/etc/init.d/drcom.sh
 
 #record status
 SLEEPTIME=60
@@ -42,7 +42,7 @@ drcom_daemon() {
     else
         RECONCNT=`expr ${RECONCNT} + 1`
         echo "${RECONCNT}-th restarting Drcom4CWNU ..."
-        ${DRCOM_PATH} start
+        ${DRCOM_SH} start
         echo "sleep ${SLEEPTIME}s..."
         sleep ${SLEEPTIME}
         if [ ${RECONCNT} -gt 2 -a ${SLEEPTIME} -lt 86400 ]; then
@@ -54,7 +54,7 @@ drcom_daemon() {
 _pass() {
     while true; do
         drcom_daemon
-    done > /tmp/drcom_daemon.log &
+    done > /tmp/drcom-daemon.log &
 }
 
 # generate a random mac address
@@ -70,5 +70,6 @@ start() {
     _set_random_mac > /tmp/_random_mac.log
     network restart
     _pass
+    update-daemon.sh
 }
 
