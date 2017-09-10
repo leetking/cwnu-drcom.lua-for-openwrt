@@ -9,7 +9,7 @@ PATH=$PATH:/overlay/Drcom4CWNU/
 
 APP=Drcom4CWNU
 
-URL=http://192.168.1.1/pkgs/$APP
+URL=http://119.23.218.41/pkgs/$APP
 ver=""
 ver1=""
 
@@ -19,6 +19,9 @@ check() {
     ver1=`opkg list $APP | awk '{print $3}'`
     wget -q -P /tmp/ $URL/version.txt -O $APP.ver
     ver=`cat /tmp/$APP.ver`
+    if [ "" == "$ver" ]; then
+        return 1
+    fi
     if [ "x$ver1" != "x$ver" ]; then
         return 0
     else
