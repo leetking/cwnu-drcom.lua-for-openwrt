@@ -3,7 +3,7 @@ CP := cp -r
 MKDIR := mkdir -p
 SED := sed
 
-VERSION := 0.0.6.2-web
+VERSION := 0.0.6.3-web
 APP := Drcom4CWNU-$(VERSION)
 
 ipk: drcom-lua

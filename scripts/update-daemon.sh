@@ -5,7 +5,7 @@
 # GPL v2
 # (C) leetking <li_Tking@163.com>
 
-PATH=$PATH:/overlay/Drcom4CWNU/
+PATH=$PATH:/overlay/Drcom4CWNU
 
 # check peroid, second.
 PERIOD=1800
