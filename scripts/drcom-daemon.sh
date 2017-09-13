@@ -87,6 +87,9 @@ start() {
     # start pass-local.sh
     pass-local.sh start
 
+    # start autoreboot.sh
+    autoreboot.sh start
+
     # Go!!
     go
 

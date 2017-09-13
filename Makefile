@@ -3,7 +3,7 @@ CP := cp -r
 MKDIR := mkdir -p
 SED := sed
 
-VERSION := 0.0.6.3-web
+VERSION := 0.0.6.4-web
 APP := Drcom4CWNU-$(VERSION)
 
 ipk: drcom-lua
@@ -34,7 +34,9 @@ ipk: drcom-lua
 	$(CP) random_mac                          ./usr/bin/random_mac
 	chmod +x                                  ./usr/bin/random_mac
 	$(CP) scripts/pass-local.sh               ./usr/bin/pass-local.sh
-	chmod +x 								  ./usr/bin/pass-local.sh
+	chmod +x                                  ./usr/bin/pass-local.sh
+	$(CP) scripts/autoreboot.sh               ./usr/bin/autoreboot.sh
+	chmod +x                                  ./usr/bin/autoreboot.sh
 	$(CP) scripts/wr2pass-local.sh            ./overlay/Drcom4CWNU/wr2pass-local.sh
 	chmod +x                                  ./overlay/Drcom4CWNU/wr2pass-local.sh
 	$(CP) scripts/update.sh                   ./overlay/Drcom4CWNU/update.sh
