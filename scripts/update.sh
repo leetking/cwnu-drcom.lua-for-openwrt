@@ -39,12 +39,14 @@ update() {
     cp $CFG /tmp/drcomrc-$$
     # install new pkg
     opkg install /tmp/$APP-$ver.ipk
+    cp /tmp/drcomrc-$$ $CFG
     # recovery config file
     wr2drcomrc.sh       start
     wr2wireless.sh      start
     wr2pass-local.sh    start
     # clear
-    rm /tmp/drcomrc-$$
+    rm -f /tmp/drcomrc-$$
+    rm -f /tmp/$APP-$ver.ipk
 }
 
 # GO!!
