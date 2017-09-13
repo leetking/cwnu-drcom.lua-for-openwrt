@@ -5,7 +5,7 @@
 # GPL v2
 # (C) leetking <li_Tking@163.com>
 
-PATH=$PATH:/overlay/Drcom4CWNU/
+PATH=$PATH:/overlay/Drcom4CWNU
 
 APP=Drcom4CWNU
 
@@ -17,9 +17,11 @@ CFG=/etc/config/drcomrc
 
 check() {
     ver1=`opkg list $APP | awk '{print $3}'`
-    wget -q -P /tmp/ $URL/version.txt -O $APP.ver
+    wget -q $URL/version.txt -O /tmp/$APP.ver
     ver=`cat /tmp/$APP.ver`
+    rm -f /tmp/$APP.var
     if [ "" == "$ver" ]; then
+        echo "Download file \`version.txt' fail."
         return 1
     fi
     if [ "x$ver1" != "x$ver" ]; then
@@ -30,8 +32,8 @@ check() {
 }
 
 update() {
-    echo "wget -q -P /tmp/ $URL/$APP-$ver.ipk -O $APP-$ver.ipk"
-    wget -q -P /tmp/ $URL/$APP-$ver.ipk -O $APP-$ver.ipk
+    echo "wget -q $URL/$APP-$ver.ipk -O $APP-$ver.ipk"
+    wget -q $URL/$APP-$ver.ipk -O /tmp/$APP-$ver.ipk
 
     # backup file
     cp $CFG /tmp/drcomrc-$$
