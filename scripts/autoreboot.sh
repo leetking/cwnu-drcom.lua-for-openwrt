@@ -1,6 +1,6 @@
 #!/bin/sh
 
-go_as_daemon() {
+go() {
     # sleep 30 minutes to wait ntpd work successfully.
     sleep 1800
 
@@ -14,7 +14,11 @@ go_as_daemon() {
             reboot
         fi
         sleep 2
-    done > /tmp/autoreboot.log &
+    done
+}
+
+go_as_daemon() {
+    go > /tmp/autoreboot.log 2>&1 &
 }
 
 Usage() {
