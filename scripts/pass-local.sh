@@ -22,6 +22,10 @@ start() {
     iptables -t nat -A PROXY -d 127.0.0.0/8 -j RETURN
 
     iptables -t nat -A PROXY -p tcp --dport 443 -j  RETURN
+    #iptables -t nat -A PROXY -p tcp --dport 80 -m string --to 512 --algo bm --icase --string ".jpg" -j RETURN
+    #iptables -t nat -A PROXY -p tcp --dport 80 -m string --to 512 --algo bm --icase --string ".png" -j RETURN
+    #iptables -t nat -A PROXY -p tcp --dport 80 -m string --to 512 --algo bm --icase --string ".webp" -j RETURN
+    #iptables -t nat -A PROXY -p tcp --dport 80 -m string --to 512 --algo bm --icase --string ".gif" -j RETURN
     iptables -t nat -A PROXY -p tcp -j  REDIRECT --to-ports $LOCAL_PORT
 
     iptables -t nat -I PREROUTING -i $INFACE -j PROXY

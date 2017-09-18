@@ -18,8 +18,8 @@ CFG=/etc/config/drcomrc
 check() {
     ver1=`opkg list $APP | awk '{print $3}'`
     wget -q $URL/version.txt -O /tmp/$APP.ver
-    ver=`cat /tmp/$APP.ver`
-    rm -f /tmp/$APP.var
+    ver=`head -1 /tmp/$APP.ver | grep -o '[0-9]\.[0-9]\.[0-9]\.[0-9][a-z-]\+' 2> /dev/null`
+    rm -f /tmp/$APP.ver
     if [ "" == "$ver" ]; then
         echo "Download file \`version.txt' fail."
         return 1
@@ -39,6 +39,7 @@ update() {
     cp $CFG /tmp/drcomrc-$$
     # install new pkg
     opkg install /tmp/$APP-$ver.ipk
+    rm -r $CFG
     cp /tmp/drcomrc-$$ $CFG
     # recovery config file
     wr2drcomrc.sh       start

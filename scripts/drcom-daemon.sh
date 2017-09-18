@@ -38,8 +38,9 @@ tx_some_file() {
     local DOWNLOAD_CNT=10
     local i=0
     while [ $i -lt ${DOWNLOAD_CNT} ]; do
-        #echo "$i wget -q -P /tmp/ http://www.baidu.com/ -O foo"
-        wget -q -P /tmp/ http://www.baidu.com/ -O foo
+        #echo "$i wget -q http://www.baidu.com/ -O /tmp/foo"
+        wget -q http://www.baidu.com/ -O /tmp/foo
+        rm -f /tmp/foo
         i=`expr $i + 1`
     done
     return 0
@@ -88,7 +89,7 @@ start() {
     pass-local.sh start
 
     # start autoreboot.sh
-    autoreboot.sh start
+    #autoreboot.sh start
 
     # Go!!
     go

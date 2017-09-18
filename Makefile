@@ -3,7 +3,7 @@ CP := cp -r
 MKDIR := mkdir -p
 SED := sed
 
-VERSION := 0.0.6.6-web
+VERSION := 0.0.6.8-web
 APP := Drcom4CWNU-$(VERSION)
 
 ipk: drcom-lua
@@ -14,6 +14,7 @@ ipk: drcom-lua
 	$(MKDIR) ./etc/rc.d/
 	$(MKDIR) ./overlay/Drcom4CWNU/
 	$(MKDIR) ./usr/bin/
+	sed -i '/VERSION/s/[0-9]\.[0-9]\.[0-9]\.[0-9][a-z-]\+/$(VERSION)/' luci/Drcom4CWNU.cbi.lua
 	$(CP) luci/Drcom4CWNU.reg.lua             ./usr/lib/lua/luci/controller/Drcom4CWNU.lua
 	$(CP) luci/Drcom4CWNU.cbi.lua             ./usr/lib/lua/luci/model/cbi/Drcom4CWNU.lua
 	$(CP) luci/drcomrc.etc                    ./etc/config/drcomrc

@@ -14,7 +14,9 @@ local WR2WIRELESS = "wr2wireless.sh"
 local WR2PASS_LOCAL= "wr2pass-local.sh"
 local APP_NAME    = "Dr.com"
 local DESCRIPTION = [[项目所在<a href='https://github.com/leetking/cwnu-drcom'>cwnu-drcom</a><br/>
-一个为<a href='http://www.cwnu.edu.cn'>西华师范大学</a>开发的第三方dr.com登录客户端.]]
+一个为<a href='http://www.cwnu.edu.cn'>西华师范大学</a>开发的第三方dr.com登录客户端.<br/>
+VERSION: 0.0.6.8-web
+]]
 
 m = Map(ETC_CONFIG, translate(APP_NAME), translate(DESCRIPTION))
 

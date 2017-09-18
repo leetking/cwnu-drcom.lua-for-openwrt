@@ -14,4 +14,4 @@ while :; do
     date
     update.sh
     sleep $PERIOD
-done > /tmp/update-daemon.sh &
+done > /tmp/update-daemon.log &
