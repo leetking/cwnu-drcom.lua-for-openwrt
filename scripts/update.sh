@@ -39,7 +39,7 @@ update() {
     cp $CFG /tmp/drcomrc-$$
     # install new pkg
     opkg install /tmp/$APP-$ver.ipk
-    rm -r $CFG
+    rm -f $CFG
     cp /tmp/drcomrc-$$ $CFG
     # recovery config file
     wr2drcomrc.sh       start

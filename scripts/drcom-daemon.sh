@@ -5,7 +5,7 @@
 # (C) leetking <li_Tking@163.com>
 # locate at /etc/init.d/drcom-daemon
 
-PATH=$PATH:/etc/init.d/:/overlay/Drcom4CWNU/
+PATH=$PATH:/etc/init.d/:/overlay/Drcom4CWNU
 
 DRCOM_SH=/etc/init.d/drcom.sh
 
@@ -38,9 +38,8 @@ tx_some_file() {
     local DOWNLOAD_CNT=10
     local i=0
     while [ $i -lt ${DOWNLOAD_CNT} ]; do
-        #echo "$i wget -q http://www.baidu.com/ -O /tmp/foo"
-        wget -q http://www.baidu.com/ -O /tmp/foo
-        rm -f /tmp/foo
+        #echo "wget -q http://www.baidu.com/ -O /dev/null"
+        wget -q http://www.baidu.com/ -O /dev/null
         i=`expr $i + 1`
     done
     return 0
@@ -74,7 +73,6 @@ go() {
 # generate a random mac address
 _set_random_mac() {
     local networkrc=/etc/config/network
-    # `random_mac' is a one writed by my using c.
     local mac=`random_mac`
     echo "mac is $mac"
     sed -i "/'wan'/,/^\s*$/{/.*macaddr.*/d}; /'wan'/a\	option macaddr '${mac}'" ${networkrc}
