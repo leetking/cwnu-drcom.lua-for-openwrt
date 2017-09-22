@@ -12,8 +12,11 @@ PROXY_PORT="2333"
 METHOD="rc4-md5"
 PASSWD="password"
 
+SS_PID=/tmp/ss-redir.pid
+
 start() {
-    ss-redir -s $PROXY_SERVER -p $PROXY_PORT -l $LOCAL_PORT -m $METHOD -k "$PASSWD" -b 0.0.0.0 &
+    ss-redir -s $PROXY_SERVER -p $PROXY_PORT -l $LOCAL_PORT -m $METHOD -k "$PASSWD" -b 0.0.0.0 \
+        -f $SS_PID &
 
     iptables -t nat -N PROXY
     iptables -t nat -A PROXY -d $PROXY_SERVER -j RETURN
@@ -32,10 +35,15 @@ start() {
 }
 
 restart() {
-    :
+    stop
+    sleep 1
+    start
 }
 stop() {
-    :
+    kill `cat $SS_PID`
+    iptables -t nat -F PROXY
+    iptables -t nat -D PREROUTING 1
+    iptables -t nat -X PROXY
 }
 status() {
     ps | grep "ss-redir"
