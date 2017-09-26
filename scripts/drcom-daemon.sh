@@ -71,16 +71,23 @@ go() {
 }
 
 # generate a random mac address
-_set_random_mac() {
-    local networkrc=/etc/config/network
+set_random_mac() {
     local mac=`random_mac`
     echo "mac is $mac"
-    sed -i "/'wan'/,/^\s*$/{/.*macaddr.*/d}; /'wan'/a\	option macaddr '${mac}'" ${networkrc}
+    # if has wan_dev, modify macaddr at there.
+    if uci get network.wan_dev.macaddr > /dev/null; then
+        uci set network.wan_dev.macaddr="$mac"
+    fi
+    uci set network.wan.macaddr="$mac"
+    uci commit network
+    uci export network
+    # You can retire.
+    #sed -i "/'wan'/,/^\s*$/{/.*macaddr.*/d}; /'wan'/a\ option macaddr '${mac}'" ${networkrc}
 }
 
 start() {
     # random mac
-    _set_random_mac > /tmp/_random_mac.log
+    set_random_mac > /tmp/random-mac.log
     network restart
 
     # start pass-local.sh
