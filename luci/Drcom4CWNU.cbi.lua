@@ -30,11 +30,12 @@ password.password = true
 net = s:option(ListValue, "net", translate("网络类型"))
 net:value("SNET", "校园网")
 net:value("INET", "互联网")
-net.default = "SNET"
-server = s:option(ListValue, "server", translate("校区"))
+net.default = "INET"
+--[[server = s:option(ListValue, "server", translate("校区"))
 server:value("10.255.0.204", "新区二期")
 server:value("10.255.0.203", "老区或一期")
 server.default = "10.255.0.204"
+--]]
 -- 把wifi配置移到这里
 wifissid = s:option(Value, "wifissid", translate("WIFI名字"))
 wifipwd  = s:option(Value, "wifipwd", translate("WIFI密码"))
@@ -48,6 +49,9 @@ local proxy_port = s:option(Value, "proxy_port", translate("代理端口"))
 proxy_port.default = "2333"
 local proxy_pwd  = s:option(Value, "proxy_pwd", translate("代理密码"))
 proxy_pwd.password = true
+function proxy_pwd:validate(value)
+    return (string.len(value) >= 1) and value or nil
+end
 
 local apply = luci.http.formvalue()
 if apply then

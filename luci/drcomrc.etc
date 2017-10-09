@@ -3,7 +3,7 @@ config setting
     option username '201413xxxxxx' # there is user name (student identity card number).
     option password 'testpwd'      # there is your pass word.
     option net      'INET'         # there is type of net.
-    option server   '10.255.0.204' # there is server ip, default is '10.255.0.204' for my location.
+    option server   '10.255.0.203' # there is server ip, default is '10.255.0.204' for my location.
     option wifissid 'yourwifiname' # there is your wifi's name.
     option wifipwd  'yourwifipwd'  # there is your wifi's pass word.
     option proxy      '192.168.1.1' # there is your proxy server ip
