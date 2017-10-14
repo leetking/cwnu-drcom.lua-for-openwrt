@@ -14,9 +14,19 @@ PASSWD="password"
 
 SS_PID=/tmp/ss-redir.pid
 
+start_ss_as_daemon() {
+    while :; do
+        # wait for that ss-redir crashs
+        echo "runing ss-redir ..."
+        ss-redir -s $PROXY_SERVER -p $PROXY_PORT -l $LOCAL_PORT -m $METHOD -k "$PASSWD" -b 0.0.0.0
+        echo "ss-redir restart."
+
+        sleep 1
+    done &  # put while into background
+}
+
 start() {
-    ss-redir -s $PROXY_SERVER -p $PROXY_PORT -l $LOCAL_PORT -m $METHOD -k "$PASSWD" -b 0.0.0.0 \
-        -f $SS_PID &
+    start_ss_as_daemon
 
     iptables -t nat -N PROXY
     iptables -t nat -A PROXY -d $PROXY_SERVER -j RETURN
@@ -35,18 +45,17 @@ start() {
 }
 
 restart() {
-    stop
+    #kill `cat $SS_PID`
     sleep 1
-    start
 }
 stop() {
-    kill `cat $SS_PID`
+    #kill `cat $SS_PID`
     iptables -t nat -F PROXY
     iptables -t nat -D PREROUTING 1
     iptables -t nat -X PROXY
 }
 status() {
-    ps | grep "ss-redir"
+    ps | grep "ss-redir" | grep -v grep
     iptables -t nat -S PROXY -v
 }
 
