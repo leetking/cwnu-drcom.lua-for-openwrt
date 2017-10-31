@@ -9,13 +9,8 @@ DRCOMRC=drcomrc
 SECTION_NAME=setting
 PATH=$PATH:/sbin/
 
-parse_conf() {
-    local wifissid
-    local wifipwd
-    config_get wifissid $1 wifissid
-    config_get wifipwd $1 wifipwd
-    echo "wifissid: '$wifissid'"
-    echo "wifipwd : '$wifipwd'"
+# tranditional version
+modify_for_openwrt() {
     local wificnt=`uci show wireless | grep -o "\[[0-9]\]" | uniq | wc -l`
     local i=0
     # suport 5G
@@ -31,6 +26,22 @@ parse_conf() {
     uci commit wireless
     echo "commit \`wireless\' success!\n"
     uci export wireless
+}
+
+# new fork from openwrt called LEDE
+modify_for_lede() {
+}
+
+parse_conf() {
+    local wifissid
+    local wifipwd
+    config_get wifissid $1 wifissid
+    config_get wifipwd $1 wifipwd
+    echo "wifissid: '$wifissid'"
+    echo "wifipwd : '$wifipwd'"
+    modify_for_openwrt ${wifissid} ${wifipwd}
+
+    #modify_for_lede ${wifissid} ${wifipwd}
 }
 
 start() {
