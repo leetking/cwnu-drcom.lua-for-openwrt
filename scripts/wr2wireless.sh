@@ -15,8 +15,8 @@ modify_for_openwrt() {
     local i=0
     # suport 5G
     while [ $i -lt $wificnt ]; do
-        uci set wireless.@wifi-iface[$i].ssid="${wifissid}"
-        uci set wireless.@wifi-iface[$i].key="${wifipwd}"
+        uci set wireless.@wifi-iface[$i].ssid="$1"
+        uci set wireless.@wifi-iface[$i].key="$2"
         uci set wireless.@wifi-iface[$i].hidden="0"
         uci set wireless.@wifi-iface[$i].country="CN"
         uci set wireless.@wifi-iface[$i].encryption="psk2"
@@ -30,6 +30,7 @@ modify_for_openwrt() {
 
 # new fork from openwrt called LEDE
 modify_for_lede() {
+    :
 }
 
 parse_conf() {

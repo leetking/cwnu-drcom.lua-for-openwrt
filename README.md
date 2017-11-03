@@ -12,3 +12,9 @@ $ make
 $ # move it into OpenWrt, then run
 OpenWrt# opkg install Drcom4CWNU-*-web.ipk
 ```
+
+# Dependence
+
+- Lua           Auto install
+- LuaSocket     Auto install
+- ss-redir      Manual install (provide via shadowsocks-libev or shadowsocks-redir)
