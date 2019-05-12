@@ -17,16 +17,16 @@ parse_conf() {
     config_get uname $1 username
     config_get paswd $1 password
     config_get net_  $1 net
-    config_get ser   $1 server
+    config_get ispc_ $1 ispc
     echo "usr: $uname"
     echo "pwd: $paswd"
     echo "net: $net_"
-    echo "ser: $ser"
+    echo "pc?: $ispc_"
     if [ -e ${DRCOMRC} ]; then
-        sed -i "/usr/s/\"[^\"]*\"/\"${uname}\"/" ${DRCOMRC}
-        sed -i "/pwd/s/\"[^\"]*\"/\"${paswd}\"/" ${DRCOMRC}
-        sed -i "/net/s/\"[^\"]*\"/\"${net_}\"/"  ${DRCOMRC}
-        sed -i "/ser/s/\"[^\"]*\"/\"${ser}\"/"   ${DRCOMRC}
+        sed -i "/usr/s/\"[^\"]*\"/\"${uname}\"/"    ${DRCOMRC}
+        sed -i "/pwd/s/\"[^\"]*\"/\"${paswd}\"/"    ${DRCOMRC}
+        sed -i "/net/s/\"[^\"]*\"/\"${net_}\"/"     ${DRCOMRC}
+        sed -i "/ispc/s/\"[^\"]*\"/\"${ispc_}\"/"   ${DRCOMRC}
     fi
 }
 

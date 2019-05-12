@@ -1,0 +1,7 @@
+#!/usr/bin/env lua
+-- 生成合法ip，并且保证了在此程序同时运行也不会产生相同ip，
+-- 通过clock来保证初始化种子的唯一性
+-- 一般情况下已经够用了
+local floor, random, time, clock = math.floor, math.random, os.time, os.clock
+math.randomseed(time() + floor(clock()*10000))
+io.write(("ec:17:2f:%02x:%02x:%02x"):format(random(255), random(255), random(255)))

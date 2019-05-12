@@ -1,0 +1,9 @@
+#!/bin/sh
+
+PROFILE=/etc/profile
+
+touch $PROFILE
+# delete the old value
+sed -i '/ulimit -SHn/d' $PROFILE
+# append the new value
+echo "ulimit -SHn 51200" >> $PROFILE
